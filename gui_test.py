@@ -89,7 +89,9 @@ class Window(QtGui.QMainWindow):
 
         pic = QtGui.QLabel(self)
         pic.setGeometry(200, 100, 1000, 700)
-        pic.setPixmap(QtGui.QPixmap(os.getcwd() + "/bitmap/reactor_mod.png"))
+        pixmap_tmp = QtGui.QPixmap(os.getcwd() + "/bitmap/reactor_mod.png")
+        pixmap = pixmap_tmp.scaled(pic.size(), QtCore.Qt.KeepAspectRatio)
+        pic.setPixmap(pixmap)
         
         self.doubleSpinBox = QtGui.QDoubleSpinBox(self)
         self.doubleSpinBox.setObjectName(_fromUtf8("doubleSpinBox"))
