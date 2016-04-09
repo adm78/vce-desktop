@@ -55,7 +55,7 @@ class Window(QtGui.QMainWindow):
 
         distillationAction = QtGui.QAction(QtGui.QIcon('bitmap/distillation.png'), 'distillation mode', self)
         distillationAction.triggered.connect(self.showDistillation)
-        
+
         self.toolBar = self.addToolBar("Mode Selector")
         self.toolBar.addAction(reactorAction)
         self.toolBar.addAction(distillationAction)
@@ -84,7 +84,7 @@ class Window(QtGui.QMainWindow):
         self.Qdial = QtGui.QDial(self)
         self.Qdial.move(800,800)
         self.Qdial.resize(QtCore.QSize(50,50))
-        
+
         _fromUtf8 = QtCore.QString.fromUtf8
 
         # temporarily removing the main png to test svg imports
@@ -114,7 +114,7 @@ class Window(QtGui.QMainWindow):
         self.mdiArea.addSubWindow(sub)
         sub.show()
 
-        
+
         self.show()
 
     def file_open(self):
@@ -122,7 +122,7 @@ class Window(QtGui.QMainWindow):
         file = open(name, 'r')
 
         self.editor()
-        
+
         with file:
             text = file.read()
             self.textEdit.setText(text)
@@ -133,7 +133,7 @@ class Window(QtGui.QMainWindow):
         text = self.textEdit.toPlainText()
         file.write(text)
         file.close()
-        
+
     def editor(self):
         self.textEdit = QtGui.QTextEdit()
         self.setCentralWidget(self.textEdit)
@@ -145,7 +145,7 @@ class Window(QtGui.QMainWindow):
         while self.completed < 100:
             self.completed += 0.0001
             self.progress.setValue(self.completed)
-        
+
     def showReactor(self):
         self.svgWidget = QtSvg.QSvgWidget(os.getcwd() + '/vector/reactor_mod.svg', self)
         self.svgWidget.setGeometry(200, 100, 700, 700)
@@ -155,18 +155,18 @@ class Window(QtGui.QMainWindow):
         self.svgWidget = QtSvg.QSvgWidget(os.getcwd() + '/vector/distillation_base.svg', self)
         self.svgWidget.setGeometry(200, 100, 700, 700)
         self.svgWidget.show()
-        
+
 
     def enlarge_window(self, state):
         if state == QtCore.Qt.Checked:
             self.setGeometry(50,50, 1800, 1200)
         else:
             self.setGeometry(50, 50, 905, 900)
-        
+
 
 
     def close_application(self):
-        choice = QtGui.QMessageBox.question(self, "Are you sure you wish to exit the application?",
+        choice = QtGui.QMessageBox.question(self, "Exit Application",
                                             "Are you sure you wish to exit the application?",
                                             QtGui.QMessageBox.Yes | QtGui.QMessageBox.No)
         if choice == QtGui.QMessageBox.Yes:
@@ -174,10 +174,10 @@ class Window(QtGui.QMainWindow):
             sys.exit()
         else:
             pass
-        
-        
 
-    
+
+
+
 def run():
     app = QtGui.QApplication(sys.argv)
     GUI = Window()
