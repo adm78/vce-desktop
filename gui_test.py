@@ -147,7 +147,7 @@ class Window(QtGui.QMainWindow):
             self.progress.setValue(self.completed)
 
     def showReactor(self):
-        self.svgWidget = QtSvg.QSvgWidget(os.getcwd() + '/vector/reactor_mod.svg', self)
+        self.svgWidget = QtSvg.QSvgWidget(os.getcwd() + '/vector/reactor_base.svg', self)
         self.svgWidget.setGeometry(200, 100, 700, 700)
         self.svgWidget.show()
 
