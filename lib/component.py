@@ -9,7 +9,7 @@ import utils
 class Component:
     def __init__(self,name):
         
-        '''If the a compontent object is created then we grab the
+        '''If a compontent object is created then we grab the
         required values/coefficients from the database. This data can
         then be used to calc. any desired property for a given
         temperature and pressure.'''
@@ -30,11 +30,11 @@ class Component:
         PropCoeff = self.getFromDatabase(prop_file_path)
         
         return PropCoeff
-        
+    
     def getLocation(self,name):
 
-        '''A simple location finder. returns the absolute path of the database
-        enttry for the target component by name. Every component enrty
+        '''A simple location finder. Returns the absolute path of the database
+        entry for the target component by name. Every component entry
         is on the top level of the properties directory for now so all
         we do is check that a file exits. Should avoid a bunch of
         re-coding later.
@@ -49,8 +49,7 @@ class Component:
         
     def getFromDatabase(self,prop_file_path):
         
-        '''grabs all physical prop data fromm file and puts it in a pandas
-        object'''
+        '''grabs all physical prop data from file and puts it in a dictionary'''
 
         # altertaive method using the pandas packages. Might be worth
         # doing later if fiel sizes get substantial
