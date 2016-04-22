@@ -5,7 +5,9 @@
 from component import Component
 
 Water = Component("water")
-print Water.PropCoeff["Cv_liquid"]
+print "Water Cv (liquid phase) coefficients", Water.PropCoeff["Cv_liquid"]
 
 Methanol = Component("methanol")
-print Methanol.PropCoeff["chemical_formula"]
+print "Methanol chemical formula = ", Methanol.PropCoeff["chemical_formula"]
+
+print "Methanol Cp (gas phase) value = ", Methanol.Cp(273,"gas")

@@ -73,3 +73,32 @@ class Component:
 
         data_file.close()
         return PropertyCoefficientDict
+
+
+    def Cp(self,T,state):
+
+        # get coefficients based on state
+        if state == "solid":
+            Cp_coeffs = self.PropCoeff["Cp_solid"]
+        elif state == "liquid":
+            Cp_coeffs = self.PropCoeff["Cp_liquid"]
+        elif state == "gas":
+            Cp_coeffs = self.PropCoeff["Cp_gas"]
+        else:
+            print "Component.Cp Error: unknown state of matter "
+            print "'" + str(state) + "' passed as an argument!"
+            sys.exit()
+
+
+        # select the correct equation
+        eq_number = int(Cp_coeffs[0])
+
+        # computer the heat capacity value
+        if eq_number == 1:
+            Cp = np.sum(Cp_coeffs[1:-1])
+        else:
+            print "Component.Cp Error: only one Cp equation is"
+            print "currently supported!"
+            sys.exit()
+
+        return Cp
