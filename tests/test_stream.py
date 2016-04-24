@@ -18,5 +18,5 @@ TestStream = Stream(test_components,
                     state=test_state)
 
 #Get the heat capacity of the stream
-print "TestStream.Cp = ", TestStream.Cp()
+print "TestStream.Cp = ", TestStream.Cp(), TestStream.CpUnit()
 

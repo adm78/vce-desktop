@@ -1,20 +1,6 @@
-#variable_name,equation_number/value,coefficeints,
-AMW,32.0
-chemical_formula,CH3OH
-melting_point,1,2.0,2.0,2.0,2.0,
-boiling_point,1,2.0,2.0,2.0,2.0
-Cp_solid,1,2.0,2.0,2.0,2.0,
-Cp_liquid,1,2.0,2.0,2.0,2.0
-Cp_gas,1,2.0,2.0,2.0,2.0,
-Cv_solid,1,2.0,2.0,2.0,2.0
-Cv_liquid,1,2.0,2.0,2.0,2.0
-Cv_gas,1,2.0,2.0,2.0,2.0,
-thermal_cond_solid,1,2.0,2.0,2.0,2.0
-thermal_cond_liquid,1,2.0,2.0,
-themal_cond_gas,1,2.0,2.0,2.0,2.0
-viscosity_solid,1,2.0,2.0,2.0,2.0
-viscosity_liquid,1,2.0,2.0,2.0,2.0
-viscosity_gas,1,2.0,2.0,2.0,2.0
-density_solid,1,2.0,2.0,2.0,2.0
-density_liquid,1,2.0,2.0,2.0,2.0
-density_gas,1,2.0,2.0,2.0,2.0
+#variable_name		eqn/value	coeffA		coeffB		coeffC	coeffD		coeffE	Tmin/K	Tmax/K	units
+AMW			32.031		-		-		-	-		-	-	-	g/mol	
+chemical_formula	CH3OH		-		-		-	-		-	-	-	-
+melting_point		1		175.47		0.0		0.0	0.0		0.0	-	-	K	
+boiling_point		1		337.5		0.0		0.0	0.0		0.0	-	-	K	
+Cp_liquid		2		256040		-2741.4		14.777	-0.0351		0.00003	175.47	503.15	J*kmol^{-1}*K^{-1}

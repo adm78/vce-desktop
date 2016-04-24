@@ -9,7 +9,7 @@ class Stream:
 
     def __init__(self, components, mole_fracs=None,
                  mass_fracs=None,mass_flowrate=None,
-                 volumetric_flowrate=None,temperature=None,
+                 volumetric_flowrate=None,temperature=273,
                  pressure=None,enthalpy=None,state=None):
         
         '''Stream properties'''
@@ -60,7 +60,7 @@ class Stream:
         # decide what missing data can be computed.  
         pass
 
-    def Cp(self):
+    def Cp(self,unit=False):
 
         '''A stream heat capacity function. Lets assume that heat capcities
         are given on a molar basis for now'''
@@ -73,12 +73,27 @@ class Stream:
         # loop through components and add Cp 
         # to overall mole weighted Cp of stream
         for i, component in enumerate(self.Components):
-            Cp += self.mole_fracs[i]*component.Cp(T,state)
+            Cp += self.mole_fracs[i]*component.Cp(self.temperature,state=self.state)
 
+            #ensure units are the same
+            if i == 0:
+                first_unit = component.CpUnit(state=self.state)
+            else:
+                if component.CpUnit(state=self.state) != first_unit:
+                    print "Stream.Cp Error: units of Cp differ between components!"
+                    sys.exit()
 
-        return Cp
+        if unit:
+            return Cp, first_unit
+        else:
+            return Cp
+    
 
+    def CpUnit(self):
+        #quick and dirty unit finder
+        return self.Cp(unit=True)[1]
 
+    
         
             
 

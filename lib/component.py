@@ -5,6 +5,7 @@ import os
 import sys
 import numpy as np
 import utils 
+import propfunct as pf
 
 class Component:
     def __init__(self,name):
@@ -15,10 +16,10 @@ class Component:
         temperature and pressure.'''
 
         self.name = name # chemical name or abbrev
-        self.PropCoeff = self.getPropCoefficientDict(self.name) #get the property dictionary
+        self.Prop = self.getPropDict(self.name) #get the property dictionary
 
     #Component Methods
-    def getPropCoefficientDict(self,name):
+    def getPropDict(self,name):
 
         '''This function pulls all physical data from the database and
         returns it in the form of a dictionary.'''
@@ -27,9 +28,9 @@ class Component:
         prop_file_path = self.getLocation(name)
 
         #Load the data/handle the data
-        PropCoeff = self.getFromDatabase(prop_file_path)
+        Prop = self.getFromDatabase(prop_file_path)
         
-        return PropCoeff
+        return Prop
     
     def getLocation(self,name):
 
@@ -49,56 +50,100 @@ class Component:
         
     def getFromDatabase(self,prop_file_path):
         
-        '''grabs all physical prop data from file and puts it in a dictionary'''
+        '''grabs all physical prop data from file, saving each as a Physical
+        property object (or extension of this class). If you add a new
+        property then you must add the appropriate 'elif' check
+        below
 
-        # altertaive method using the pandas packages. Might be worth
-        # doing later if fiel sizes get substantial
-        #mycols = ["variable","equation_number","c1","c2","c3","c4","c5"] 
-        #df = pd.read_csv(prop_file_path,names=mycols,engine="python")
-        # print df
+        '''
         
-        PropertyCoefficientDict = {}
+        PropertyData = {}
         data_file = open(prop_file_path,'r')
 
-        #parse each line and handle the data
+        #parse each line and handle the data accordingly 
         for line_number, line in enumerate(data_file.readlines()):
             if line_number !=0: #ignore the header
 
+                unit = line.split()[-1]
+                
                 if line.startswith("AMW"):
-                    PropertyCoefficientDict["AWM"] = float(line.split(',')[1])
+
+                    coeffs = float(line.split()[1])
+                    PropertyData["AWM"] = pf.PhysicalProperty(unit=unit,coeffs=coeffs)
+
                 elif line.startswith("chemical_formula"):
-                    PropertyCoefficientDict["chemical_formula"] = line.split(',')[1]
+                    PropertyData["chemical_formula"] = line.split()[1]
+
+                elif line.startswith("melting_point"):
+                        
+                    coeffs = float(line.split()[1])
+                    PropertyData["melting_point"] = pf.PhysicalProperty(unit=unit,coeffs=coeffs)
+
+                elif line.startswith("boiling_point"):
+
+                    coeffs = float(line.split()[1])
+                    PropertyData["boiling_point"] = pf.PhysicalProperty(unit=unit,coeffs=coeffs)
+
+                elif line.startswith("Cp_liquid"): #standard physical property with Tmin and Tmax
+                    
+                    eqn = int(line.split()[1])
+                    coeffs = np.array(line.split()[2:len(line.split())-3],dtype=float) 
+                    Tmin = float(line.split()[len(line.split())-3])
+                    Tmax = float(line.split()[len(line.split())-2])
+                    PropertyData["Cp_liquid"] = pf.Cp_liq(eqn=eqn,coeffs=coeffs,
+                                                                    Tmin=Tmin,Tmax=Tmax,
+                                                                    unit=unit)
+
                 else: #take values, ignore carriage return and convert a numpy array of floats
-                    PropertyCoefficientDict[line.split(',')[0]] = np.asarray(line.split(',')[1:len(line.split(','))-1],'float')
+                    print "Component.getFromDatabase Error: Unexpected physical property"
+                    print "with name", line.split()[0], " in database file "
+                    print prop_file_path
+                    sys.exit()
 
         data_file.close()
-        return PropertyCoefficientDict
+        return PropertyData
 
 
-    def Cp(self,T,state):
+    def Cp(self,T,state="gas",unit=False):
 
-        # get coefficients based on state
+        # get value based on the state
+        # return value and unit as a tuple if unit==True
+
         if state == "solid":
-            Cp_coeffs = self.PropCoeff["Cp_solid"]
+            Cp = self.Prop["Cp_solid"].value(T)
+            Cp_unit = self.Prop["Cp_solid"].unit
         elif state == "liquid":
-            Cp_coeffs = self.PropCoeff["Cp_liquid"]
+            Cp = self.Prop["Cp_liquid"].value(T)
+            Cp_unit = self.Prop["Cp_liquid"].unit
         elif state == "gas":
-            Cp_coeffs = self.PropCoeff["Cp_gas"]
+            Cp = self.Prop["Cp_gas"].value(T)
+            Cp_unit = self.Prop["Cp_gas"].unit
         else:
             print "Component.Cp Error: unknown state of matter "
             print "'" + str(state) + "' passed as an argument!"
             sys.exit()
 
-
-        # select the correct equation
-        eq_number = int(Cp_coeffs[0])
-
-        # computer the heat capacity value
-        if eq_number == 1:
-            Cp = np.sum(Cp_coeffs[1:-1])
+        if unit:
+            return Cp, Cp_unit
         else:
-            print "Component.Cp Error: only one Cp equation is"
-            print "currently supported!"
+            return Cp
+
+    def CpUnit(self,state="gas"):
+
+        #return only the unit 
+
+        if state == "solid":
+            Cp_unit = self.Prop["Cp_solid"].unit
+        elif state == "liquid":
+            Cp_unit = self.Prop["Cp_liquid"].unit
+        elif state == "gas":
+            Cp_unit = self.Prop["Cp_gas"].unit
+        else:
+            print "Component.Cp Error: unknown state of matter "
+            print "'" + str(state) + "' passed as an argument!"
             sys.exit()
 
-        return Cp
+        return Cp_unit
+
+        
+
