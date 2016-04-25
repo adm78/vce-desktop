@@ -84,6 +84,16 @@ class Component:
                     coeffs = float(line.split()[1])
                     PropertyData["boiling_point"] = pf.PhysicalProperty(unit=unit,coeffs=coeffs)
 
+                elif line.startswith("vapour_pressure_liq"):
+                    
+                    eqn = int(line.split()[1])
+                    coeffs = np.array(line.split()[2:len(line.split())-3],dtype=float) 
+                    Tmin = float(line.split()[len(line.split())-3])
+                    Tmax = float(line.split()[len(line.split())-2])
+                    PropertyData["vapour_pressure_liquid"] = pf.Vapour_pressure_liq(eqn=eqn,coeffs=coeffs,
+                                                                    Tmin=Tmin,Tmax=Tmax,
+                                                                    unit=unit)
+
                 elif line.startswith("Cp_liquid"): #standard physical property with Tmin and Tmax
                     
                     eqn = int(line.split()[1])
@@ -145,5 +155,48 @@ class Component:
 
         return Cp_unit
 
+
+    def Pvap(self,T,state="gas",unit=False):
+        
+        
+        # get value based on the state
+        # return value and unit as a tuple if unit==True
+
+        if state == "solid":
+            Pvap = self.Prop["vapour_pressure_solid"].value(T)
+            Pvap_unit = self.Prop["vapour_pressure_solid"].unit
+        elif state == "liquid":
+            Pvap = self.Prop["vapour_pressure_liquid"].value(T)
+            Pvap_unit = self.Prop["vapour_pressure_liquid"].unit
+        elif state == "gas":
+            Pvap = self.Prop["vapour_pressure_gas"].value(T)
+            Pvap_unit = self.Prop["vapour_pressure_gas"].unit
+        else:
+            print "Component.Pvap Error: unknown state of matter "
+            print "'" + str(state) + "' passed as an argument!"
+            sys.exit()
+
+        if unit:
+            return Pvap, Pvap_unit
+        else:
+            return Pvap
+
+    def PvapUnit(self,state="gas"):
+
+        #return only the unit 
+
+        if state == "solid":
+            Pvap_unit = self.Prop["vapour_pressure_solid"].unit
+        elif state == "liquid":
+            Pvap_unit = self.Prop["vapour_pressure_liquid"].unit
+        elif state == "gas":
+            Pvap_unit = self.Prop["vapour_pressure_gas"].unit
+        else:
+            print "Component.PvapUnit Error: unknown state of matter "
+            print "'" + str(state) + "' passed as an argument!"
+            sys.exit()
+
+        return Pvap_unit
+    
         
 

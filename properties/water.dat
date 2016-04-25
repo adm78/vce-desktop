@@ -1,6 +1,7 @@
-#variable_name		eqn/value	coeffA		coeffB		coeffC	coeffD		coeffE	Tmin/K	Tmax/K	units
-AMW			18.0		-		-		-	-		-	-	-	g/mol	
-chemical_formula	H2O		-		-		-	-		-	-	-	-
-melting_point		1		175.47		0.0		0.0	0.0		0.0	-	-	K	
-boiling_point		1		337.5		0.0		0.0	0.0		0.0	-	-	K	
-Cp_liquid		2		256040		-2741.4		14.777	-0.0351		0.00003	175.47	503.15	J*kmol^{-1}*K^{-1}
+#variable_name		eqn/value	coeffA		coeffB		coeffC	coeffD		coeffE		Tmin/K	Tmax/K	units
+AMW			18.02		-		-		-	-		-		-	-	g*mol^{-1}
+chemical_formula	H2O		-		-		-	-		-		-	-	-
+melting_point		1		273.15		0.0		0.0	0.0		0.0		-	-	K	
+boiling_point		1		373.15		0.0		0.0	0.0		0.0		-	-	K	
+Cp_liquid		2		276370		-2090.1		8.125	-0.014116	9.37E-6		273.16	533.15	J*kmol^{-1}*K^{-1}
+vapour_pressure_liquid	2		73.64		-7258.2		-7.3037	4.1653E-06	2		273.16	647.096	Pa
