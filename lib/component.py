@@ -5,7 +5,7 @@ import os
 import sys
 import numpy as np
 import utils 
-import propfunct as pf
+import thermo 
 import inspect
 
 class Component:
@@ -70,7 +70,7 @@ class Component:
                 if line.startswith("AMW"):
 
                     coeffs = float(line.split()[1])
-                    PropertyData["AWM"] = pf.PhysicalProperty(unit=unit,coeffs=coeffs)
+                    PropertyData["AWM"] = thermo.PhysicalProperty(unit=unit,coeffs=coeffs)
 
                 elif line.startswith("chemical_formula"):
                     PropertyData["chemical_formula"] = line.split()[1]
@@ -78,12 +78,12 @@ class Component:
                 elif line.startswith("melting_point"):
                         
                     coeffs = float(line.split()[1])
-                    PropertyData["melting_point"] = pf.PhysicalProperty(unit=unit,coeffs=coeffs)
+                    PropertyData["melting_point"] = thermo.PhysicalProperty(unit=unit,coeffs=coeffs)
 
                 elif line.startswith("boiling_point"):
 
                     coeffs = float(line.split()[1])
-                    PropertyData["boiling_point"] = pf.PhysicalProperty(unit=unit,coeffs=coeffs)
+                    PropertyData["boiling_point"] = thermo.PhysicalProperty(unit=unit,coeffs=coeffs)
 
                 # standard physical properties with Tmin and Tmax
                 elif line.startswith("Pvap_liq"):
@@ -92,7 +92,7 @@ class Component:
                     coeffs = np.array(line.split()[2:len(line.split())-3],dtype=float) 
                     Tmin = float(line.split()[len(line.split())-3])
                     Tmax = float(line.split()[len(line.split())-2])
-                    PropertyData["Pvap_liquid"] = pf.Vapour_pressure_liq(eqn=eqn,coeffs=coeffs,
+                    PropertyData["Pvap_liquid"] = thermo.Vapour_pressure_liq(eqn=eqn,coeffs=coeffs,
                                                                     Tmin=Tmin,Tmax=Tmax,
                                                                     unit=unit)
 
@@ -102,7 +102,7 @@ class Component:
                     coeffs = np.array(line.split()[2:len(line.split())-3],dtype=float) 
                     Tmin = float(line.split()[len(line.split())-3])
                     Tmax = float(line.split()[len(line.split())-2])
-                    PropertyData["Cp_liquid"] = pf.Cp_liq(eqn=eqn,coeffs=coeffs,
+                    PropertyData["Cp_liquid"] = thermo.Cp_liq(eqn=eqn,coeffs=coeffs,
                                                                     Tmin=Tmin,Tmax=Tmax,
                                                                     unit=unit)
 
