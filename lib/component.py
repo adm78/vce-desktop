@@ -6,6 +6,7 @@ import sys
 import numpy as np
 import utils 
 import propfunct as pf
+import inspect
 
 class Component:
     def __init__(self,name):
@@ -84,17 +85,18 @@ class Component:
                     coeffs = float(line.split()[1])
                     PropertyData["boiling_point"] = pf.PhysicalProperty(unit=unit,coeffs=coeffs)
 
-                elif line.startswith("vapour_pressure_liq"):
+                # standard physical properties with Tmin and Tmax
+                elif line.startswith("Pvap_liq"):
                     
                     eqn = int(line.split()[1])
                     coeffs = np.array(line.split()[2:len(line.split())-3],dtype=float) 
                     Tmin = float(line.split()[len(line.split())-3])
                     Tmax = float(line.split()[len(line.split())-2])
-                    PropertyData["vapour_pressure_liquid"] = pf.Vapour_pressure_liq(eqn=eqn,coeffs=coeffs,
+                    PropertyData["Pvap_liquid"] = pf.Vapour_pressure_liq(eqn=eqn,coeffs=coeffs,
                                                                     Tmin=Tmin,Tmax=Tmax,
                                                                     unit=unit)
 
-                elif line.startswith("Cp_liquid"): #standard physical property with Tmin and Tmax
+                elif line.startswith("Cp_liquid"): 
                     
                     eqn = int(line.split()[1])
                     coeffs = np.array(line.split()[2:len(line.split())-3],dtype=float) 
@@ -104,7 +106,7 @@ class Component:
                                                                     Tmin=Tmin,Tmax=Tmax,
                                                                     unit=unit)
 
-                else: #take values, ignore carriage return and convert a numpy array of floats
+                else: 
                     print "Component.getFromDatabase Error: Unexpected physical property"
                     print "with name", line.split()[0], " in database file "
                     print prop_file_path
@@ -114,24 +116,40 @@ class Component:
         return PropertyData
 
 
+    def checkValidState(self,state):
+        # as it says on the tin, fatal error on test failure
+        if (state != "liquid") and (state != "solid") and (state != "gas"):
+            print "component.checkValidState Error: unknown state of matter"
+            print state, "passed as an arg!"
+            sys.exit()
+        else:
+            return True
+    
+    def getStateDependentValue(self,fname,T,
+                               state="gas",unit=False):
+        
+        '''get the value/unit based on the function called
+        and the state'''
+        prop_name = fname + "_" + state
+        prop_value = self.Prop[prop_name].value(T)
+        prop_unit = self.Prop[prop_name].unit
+
+        return prop_value, prop_unit 
+
+
+    def getStateDependentUnit(self,fname,state="gas"):
+        
+        '''get the unit based on the function called
+        and the state'''
+        fname = ''.join(fname.split())[:-4] #strip the "Unit" from the f name
+        prop_name = fname + "_" + state
+        return self.Prop[prop_name].unit #return the correct unit
+
     def Cp(self,T,state="gas",unit=False):
 
-        # get value based on the state
-        # return value and unit as a tuple if unit==True
-
-        if state == "solid":
-            Cp = self.Prop["Cp_solid"].value(T)
-            Cp_unit = self.Prop["Cp_solid"].unit
-        elif state == "liquid":
-            Cp = self.Prop["Cp_liquid"].value(T)
-            Cp_unit = self.Prop["Cp_liquid"].unit
-        elif state == "gas":
-            Cp = self.Prop["Cp_gas"].value(T)
-            Cp_unit = self.Prop["Cp_gas"].unit
-        else:
-            print "Component.Cp Error: unknown state of matter "
-            print "'" + str(state) + "' passed as an argument!"
-            sys.exit()
+        fname = inspect.stack()[0][3] #get the name of the func being called
+        self.checkValidState(state) #check the state is valid
+        Cp, Cp_unit = self.getStateDependentValue(fname,T,state,unit)  #get the value/units
 
         if unit:
             return Cp, Cp_unit
@@ -141,40 +159,14 @@ class Component:
     def CpUnit(self,state="gas"):
 
         #return only the unit 
-
-        if state == "solid":
-            Cp_unit = self.Prop["Cp_solid"].unit
-        elif state == "liquid":
-            Cp_unit = self.Prop["Cp_liquid"].unit
-        elif state == "gas":
-            Cp_unit = self.Prop["Cp_gas"].unit
-        else:
-            print "Component.Cp Error: unknown state of matter "
-            print "'" + str(state) + "' passed as an argument!"
-            sys.exit()
-
-        return Cp_unit
-
+        fname = inspect.stack()[0][3]
+        return self.getStateDependentUnit(fname,state)
 
     def Pvap(self,T,state="gas",unit=False):
         
-        
-        # get value based on the state
-        # return value and unit as a tuple if unit==True
-
-        if state == "solid":
-            Pvap = self.Prop["vapour_pressure_solid"].value(T)
-            Pvap_unit = self.Prop["vapour_pressure_solid"].unit
-        elif state == "liquid":
-            Pvap = self.Prop["vapour_pressure_liquid"].value(T)
-            Pvap_unit = self.Prop["vapour_pressure_liquid"].unit
-        elif state == "gas":
-            Pvap = self.Prop["vapour_pressure_gas"].value(T)
-            Pvap_unit = self.Prop["vapour_pressure_gas"].unit
-        else:
-            print "Component.Pvap Error: unknown state of matter "
-            print "'" + str(state) + "' passed as an argument!"
-            sys.exit()
+        fname = inspect.stack()[0][3] #get the name of the function being called
+        self.checkValidState(state) # check the state is okay
+        Pvap, Pvap_unit = self.getStateDependentValue(fname,T,state,unit) 
 
         if unit:
             return Pvap, Pvap_unit
@@ -182,21 +174,11 @@ class Component:
             return Pvap
 
     def PvapUnit(self,state="gas"):
-
+        
         #return only the unit 
+        fname = inspect.stack()[0][3]
+        return self.getStateDependentUnit(fname,state)
 
-        if state == "solid":
-            Pvap_unit = self.Prop["vapour_pressure_solid"].unit
-        elif state == "liquid":
-            Pvap_unit = self.Prop["vapour_pressure_liquid"].unit
-        elif state == "gas":
-            Pvap_unit = self.Prop["vapour_pressure_gas"].unit
-        else:
-            print "Component.PvapUnit Error: unknown state of matter "
-            print "'" + str(state) + "' passed as an argument!"
-            sys.exit()
-
-        return Pvap_unit
     
         
 

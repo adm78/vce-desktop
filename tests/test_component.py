@@ -17,4 +17,4 @@ print "Methanol Cp (liq phase) value @273K (no unit display) = ", Methanol.Cp(27
 print "Methanol Cp (liq phase) value @273K (sep. unit display) = ", Methanol.Cp(273,state="liquid"),Methanol.CpUnit("liquid") 
 print "Methanol Pvap (liq phase) value @273K = ", Methanol.Pvap(273,state="liquid",unit=True)
 print "Methanol Pvap (liq phase) value @333K = ", Methanol.Pvap(333,state="liquid",unit=True)
-print "Methanol Pvap (liq phase) value @333K (sep. unit display) = ", Methanol.Pvap(333,state="liquid"),Methanol.CpUnit("liquid")
+print "Methanol Pvap (liq phase) value @333K (sep. unit display) = ", Methanol.Pvap(333,state="liquid"),Methanol.PvapUnit("liquid")
