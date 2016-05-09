@@ -1,4 +1,5 @@
-# vce-desktop
+![Alt text](/resources/vcelogo.png?raw=true)
+# VCE Desktop
 Visual Chemical Engineering Desktop Application
 
 The general aims of the project can be found here:
