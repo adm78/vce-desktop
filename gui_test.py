@@ -1,3 +1,4 @@
+#!/usr/bin/python
 import sys, os
 from PyQt4 import QtGui, QtCore, QtSvg
 
