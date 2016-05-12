@@ -26,32 +26,7 @@ class Stream:
         '''calculate missing data where possible'''
         self.calcMissingData()
 
-        
-    def addComponent(self,component_name,mols=None,
-                     mass=None,new_mole_frac=None,
-                     new_mass_frac=None):
-
-        ''' add a new component and update mix properties'''
-        
-        #update the component list
-        newComponent = Component(component_name)
-        self.Components.append(newComponent)                
-                
-        #update the mass/mole fraction lists by checking args
-        #in order of priority, not yet functional
-        if mols != None:
-            pass
-        elif mass != None:
-            pass
-        elif new_mole_frac !=None:
-            pass
-        elif new_mass_frac !=None:
-            pass
-        else:
-            print "Stream.addComponent Error: quantity of component"
-            print "to be added must be supplied as an arg!"
-            sys.exit()
-        
+            
 
     def calcMissingData(self):
 
