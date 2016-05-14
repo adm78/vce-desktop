@@ -1,0 +1,7 @@
+#variable_name		eqn/value	coeffA		coeffB		coeffC	coeffD		coeffE	Tmin/K	Tmax/K	units
+AMW			32.031		-		-		-	-		-	-	-	g*mol^{-1}
+chemical_formula	CH3OH		-		-		-	-		-	-	-	-
+melting_point		1		175.47		0.0		0.0	0.0		0.0	-	-	K	
+boiling_point		1		337.5		0.0		0.0	0.0		0.0	-	-	K	
+Cp_liquid		2		256040		-2741.4		14.777	-0.0351		0.00003	175.47	503.15	J*kmol^{-1}*K^{-1}
+Pvap_liquid		2		82.718		-6904.5		-8.8622	7.4664E-06	2	175.47	512.5	Pa
