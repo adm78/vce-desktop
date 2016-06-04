@@ -5,6 +5,8 @@
 from component import Component
 
 Methanol = Component("methanol")
+Water = Component("water")
+
 print "Methanol chemical formula = ", Methanol.Prop["chemical_formula"]
 print "Methanol Cp (liq phase) coeffs =", Methanol.Prop["Cp_liquid"].coeffs
 print "Methanol Cp (liq phase) eqn =", Methanol.Prop["Cp_liquid"].eqn
@@ -15,7 +17,13 @@ print "Methanol Cp (liq phase) value @273K = ", Methanol.Cp(273,state="liquid",u
 print "Methanol Cp (liq phase) value @333K = ", Methanol.Cp(333,state="liquid",unit=True)
 print "Methanol Cp (liq phase) value @273K (no unit display) = ", Methanol.Cp(273,state="liquid")
 print "Methanol Cp (liq phase) value @273K (sep. unit display) = ", Methanol.Cp(273,state="liquid"),Methanol.CpUnit("liquid") 
+
 print "Methanol Pvap (liq phase) value @273K = ", Methanol.Pvap(273,state="liquid",unit=True)
 print "Methanol Pvap (liq phase) value @333K = ", Methanol.Pvap(333,state="liquid",unit=True)
 print "Methanol Pvap (liq phase) value @333K (sep. unit display) = ", Methanol.Pvap(333,state="liquid"),Methanol.PvapUnit("liquid")
 
+
+print "Methanol molar rho (liq phase) value @300K = ", Methanol.rho(300,unit=True)
+print "Methanol molar rho (liq phase) value @300K (sep. unit display) = ", Methanol.rho(300),Methanol.rhoUnit("liquid")
+print "Methanol mass rho (liq phase) value @333K = ", Methanol.rho(300,unit=True,mass=True)
+print "Water mass rho (liq phase) value @333K = ", Water.rho(300,unit=True,mass=True)

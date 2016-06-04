@@ -5,6 +5,15 @@ import numpy as np
 import scipy.constants as const
 
 #-------------------------------------------------------------------------
+class PhysicalConstant:
+    
+    #basic constant class used for AMW and chemical formula
+    def __init__(self,value,unit):
+        
+        self.value = value
+        self.unit = unit
+
+#-------------------------------------------------------------------------
 class PhysicalProperty:
 
     #abstract physical property class
@@ -17,7 +26,7 @@ class PhysicalProperty:
         self.Tmax = Tmax
         self.unit = unit
 
-    def value(self,T):
+    def value(self):
         '''by default the value is just that of the first coeffient'''
         return self.coeffs[0]
 
@@ -81,6 +90,45 @@ class Vapour_pressure_liq(PhysicalProperty):
             sys.exit()
 
         return value
+#-------------------------------------------------------------------------
+class rho_liq(PhysicalProperty):
+    
+    def __init__(self,eqn=1,coeffs=[1],
+                 Tmin=None,Tmax=None,unit="-"):
+
+        PhysicalProperty.__init__(self,coeffs=coeffs,
+                                  Tmin=Tmin,Tmax=Tmax,unit=unit)
+        self.eqn = eqn
+        
+    def value(self,T):
+
+        '''Returns the molar liquid density of a pure species'''
+
+        if self.eqn == 1:
+            value = self.coeffs[0]
+
+        elif self.eqn == 2:
+
+            #compute rho = A/B^(1-(T/C)^D)
+            num = self.coeffs[0]
+            exponent = 1.0 + (1.0 - (T/self.coeffs[2]))**(self.coeffs[3])
+            den = self.coeffs[1]**(exponent)
+            value = num/den
+        
+        elif self.eqn == 3: 
+
+            #compute rho = A + BT + CT**2 + D*T**3 + ...
+            value = 0.0
+            for i, coeff in np.ndenumerate(self.coeffs):
+                value += coeff*T**i[0]
+            
+        else:
+            print "rho_liq.value Error: equation number", eqn, " does"
+            print "not match any known rho_liq equation!"
+            sys.exit()
+
+        return value
+
 #-------------------------------------------------------------------------
 def IdealGasPressure(n=40.8969,T=298.15,V=1,molar_conc=None,
                      mass_conc=None,amw=None,unit=False):

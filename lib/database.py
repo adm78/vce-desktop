@@ -60,8 +60,8 @@ def getFromDatabase(prop_file_path):
 
             if line.startswith("AMW"):
 
-                coeffs = float(line.split()[1])
-                PropertyData["AWM"] = thermo.PhysicalProperty(unit=unit,coeffs=coeffs)
+                coeff = float(line.split()[1])
+                PropertyData["AMW"] = thermo.PhysicalConstant(value=coeff,unit=unit)
 
             elif line.startswith("chemical_formula"):
                 PropertyData["chemical_formula"] = line.split()[1]
@@ -96,7 +96,15 @@ def getFromDatabase(prop_file_path):
                 PropertyData["Cp_liquid"] = thermo.Cp_liq(eqn=eqn,coeffs=coeffs,
                                                                 Tmin=Tmin,Tmax=Tmax,
                                                                 unit=unit)
+            elif line.startswith("rho_liquid"): 
 
+                eqn = int(line.split()[1])
+                coeffs = np.array(line.split()[2:len(line.split())-3],dtype=float) 
+                Tmin = float(line.split()[len(line.split())-3])
+                Tmax = float(line.split()[len(line.split())-2])
+                PropertyData["rho_liquid"] = thermo.rho_liq(eqn=eqn,coeffs=coeffs,
+                                                                Tmin=Tmin,Tmax=Tmax,
+                                                                unit=unit)
             else: 
                 print "Component.getFromDatabase Error: Unexpected physical property"
                 print "with name", line.split()[0], " in database file "

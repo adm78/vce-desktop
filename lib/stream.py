@@ -69,6 +69,39 @@ class Stream:
         return self.Cp(unit=True)[1]
 
 
+    def rho(self,unit=False):
+
+        '''A stream density function. Assumes a molar basis'''
+        
+        # locals
+        T = self.temperature
+        state = self.state
+        rho = 0.0
+        
+        # loop through components and add rho 
+        # to overall mole weighted rho of stream
+        for i, component in enumerate(self.Components):
+            rho += self.mole_fracs[i]*component.rho(self.temperature,state=self.state)
+
+            #ensure units are the same
+            if i == 0:
+                first_unit = component.rhoUnit(state=self.state)
+            else:
+                if component.rhoUnit(state=self.state) != first_unit:
+                    print "Stream.rho Error: units of rho differ between components!"
+                    sys.exit()
+
+        if unit:
+            return rho, first_unit
+        else:
+            return rho
+    
+
+    def rhoUnit(self):
+        #quick and dirty unit finder
+        return self.rho(unit=True)[1]        
+
+
     def Pvap(self,unit=False):
 
         '''A stream heat capacity function. Lets assume that heat capcities

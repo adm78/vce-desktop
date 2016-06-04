@@ -14,6 +14,8 @@ class Component:
 
         self.name = name # chemical name or abbrev
         self.Prop = database.getPropDict(self.name) #get the property dictionary
+        self.AMW = self.Prop["AMW"].value
+        self.AMWUnit = self.Prop["AMW"].unit
 
     #Component Methods
     def checkValidState(self,state):
@@ -79,6 +81,38 @@ class Component:
         fname = inspect.stack()[0][3]
         return self.getStateDependentUnit(fname,state)
 
-    
+    def rho(self,T,state="liquid",
+            unit=False,mass=False):
+        
+        '''returns the mass or molar density of a component depending
+        on the args.'''
+
+        fname = inspect.stack()[0][3] #get the name of the function being called
+        self.checkValidState(state) # check the state is okay
+        rho, rho_unit = self.getStateDependentValue(fname,T,state,unit) 
+
+        #check if the value is to be converted to mass form
+        if mass: 
+            if rho_unit == "kmol*m^{-3}":
+                rho= rho*self.AMW
+                rho_unit = "kg*m^{-3}"
+            else:
+                print "Component.rho Error: cannot convert molar density "
+                print "to mass form with the molar units present!"
+                print "For now liquid denity data must be in kmol*m^{-3}."
+                print "Current molar units:", rho_unit
+                sys.exit()
+            
+        
+        if unit:
+            return rho, rho_unit
+        else:
+            return rho
+
+    def rhoUnit(self,state="liquid"):
+        
+        #return only the unit 
+        fname = inspect.stack()[0][3]
+        return self.getStateDependentUnit(fname,state)    
         
 
