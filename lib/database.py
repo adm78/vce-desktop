@@ -33,7 +33,7 @@ def getLocation(name):
     re-coding later.
 
     '''
-    target_filename = name + '.dat'
+    target_filename = name + '.txt'
     full_path = os.path.abspath(os.path.join(utils.getVCEPropertiesPath(),target_filename))
     if not os.path.exists(full_path):
         sys.exit("Component.getLocation Error: " + full_path + " does not exist.")
