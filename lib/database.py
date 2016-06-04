@@ -68,13 +68,13 @@ def getFromDatabase(prop_file_path):
 
             elif line.startswith("melting_point"):
 
-                coeffs = float(line.split()[1])
-                PropertyData["melting_point"] = thermo.PhysicalProperty(unit=unit,coeffs=coeffs)
+                coeff = float(line.split()[1])
+                PropertyData["melting_point"] = thermo.PhysicalConstant(value=coeff,unit=unit)
 
             elif line.startswith("boiling_point"):
 
-                coeffs = float(line.split()[1])
-                PropertyData["boiling_point"] = thermo.PhysicalProperty(unit=unit,coeffs=coeffs)
+                coeff = float(line.split()[1])
+                PropertyData["boiling_point"] = thermo.PhysicalConstant(value=coeff,unit=unit)
 
             # standard physical properties with Tmin and Tmax
             elif line.startswith("Pvap_liq"):
