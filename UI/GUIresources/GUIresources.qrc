@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="images">
+    <file>vcelogo.png</file>
+    <file>flash_icon.png</file>
+  </qresource>
+</RCC>

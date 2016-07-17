@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>vceMainWindow</class>
+ <widget class="QMainWindow" name="vceMainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1096</width>
+    <height>753</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="windowTitle">
+   <string>vce</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="GUIresources/GUIresources.qrc">
+    <normaloff>:/images/vcelogo.png</normaloff>:/images/vcelogo.png</iconset>
+  </property>
+  <widget class="QWidget" name="vcecentralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <layout class="QHBoxLayout" name="vcehorizontalLayout">
+      <item>
+       <widget class="QLineEdit" name="vcelineEdit"/>
+      </item>
+      <item>
+       <widget class="QPushButton" name="vcepushButton">
+        <property name="text">
+         <string>Parse this file</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="vceflashWidget" name="vce" native="true">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="vcemenubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1096</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="vcemenuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="vceactionOpen"/>
+    <addaction name="separator"/>
+    <addaction name="vceactionQuit"/>
+   </widget>
+   <widget class="QMenu" name="menuEdit">
+    <property name="title">
+     <string>Edit</string>
+    </property>
+    <addaction name="actionSettings"/>
+   </widget>
+   <widget class="QMenu" name="menuSimulate">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>380</x>
+      <y>151</y>
+      <width>171</width>
+      <height>80</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Simulate</string>
+    </property>
+    <addaction name="actionFlashTank"/>
+   </widget>
+   <widget class="QMenu" name="menuAnalyse">
+    <property name="title">
+     <string>Analyse</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuView">
+    <property name="title">
+     <string>View</string>
+    </property>
+   </widget>
+   <addaction name="vcemenuFile"/>
+   <addaction name="menuEdit"/>
+   <addaction name="menuSimulate"/>
+   <addaction name="menuAnalyse"/>
+   <addaction name="menuView"/>
+  </widget>
+  <widget class="QToolBar" name="vcetoolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>50</width>
+     <height>50</height>
+    </size>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>LeftToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionFlashTank"/>
+  </widget>
+  <action name="vceactionOpen">
+   <property name="text">
+    <string>Open</string>
+   </property>
+  </action>
+  <action name="actionSettings">
+   <property name="text">
+    <string>Settings</string>
+   </property>
+  </action>
+  <action name="actionFlash_tank">
+   <property name="text">
+    <string>Flash tank</string>
+   </property>
+  </action>
+  <action name="actionFlashTank">
+   <property name="icon">
+    <iconset resource="GUIresources/GUIresources.qrc">
+     <normaloff>:/images/flash_icon.png</normaloff>:/images/flash_icon.png</iconset>
+   </property>
+   <property name="text">
+    <string>Flash Tank</string>
+   </property>
+  </action>
+  <action name="vceactionQuit">
+   <property name="text">
+    <string>Exit</string>
+   </property>
+  </action>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>vceflashWidget</class>
+   <extends>QWidget</extends>
+   <header>vceflashwidget.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="GUIresources/GUIresources.qrc"/>
+ </resources>
+ <connections/>
+</ui>
