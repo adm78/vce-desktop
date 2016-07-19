@@ -23,11 +23,11 @@ class DesignerMainWindow(QtGui.QMainWindow, Ui_vceMainWindow):
 
     def select_file(self):
         
-        file = QtGui.QFileDialog.getOpenFilename()
+        file = QtGui.QFileDialog.getOpenFileName()
         if file:
             self.vcelineEdit.setText(file)
 
-    def parse_file(self):
+    def parse_file(self, filename):
         
         letters = {}
         
@@ -41,19 +41,19 @@ class DesignerMainWindow(QtGui.QMainWindow, Ui_vceMainWindow):
                     if ord(char.lower()) in range(97, 122 + 1):
                         letters[char.lower()] += 1
 
-        k = sorted(letter.keys())
+        k = sorted(letters.keys())
         v = [letters[ki] for ki in k]
         return k,v
 
     def update_graph(self):
         
         l, v = self.parse_file(self.vcelineEdit.text())
-
+        
         self.vce.canvas.ax.clear()
-        self.vce.canvas.ax.bar(np.arange(len(1)-0.25, v, width=0.5))
-        self.vce.canvas.ax.set_xlim(xmin=-0.25, xmax=len(1)-0.75)
-        self.vce.canvas.ax.set_xticks(range(len(1)))
-        self.vce.canvas.ax.set_xticklabels(1)
+        self.vce.canvas.ax.bar(np.arange(len(l))-0.25, v, width=0.5)
+        self.vce.canvas.ax.set_xlim(xmin=-0.25, xmax=len(l)-0.75)
+        self.vce.canvas.ax.set_xticks(range(len(l)))
+        self.vce.canvas.ax.set_xticklabels(l)
         self.vce.canvas.ax.get_yaxis().grid(True)
         self.vce.canvas.draw()
         
