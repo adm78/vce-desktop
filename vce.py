@@ -1,3 +1,4 @@
+#!/usr/bin/python
 import numpy as np
 import sys
 from PyQt4 import QtCore
