@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 '''Preliminary test of the flash class methods'''
-from unitop import FlashTank
+from flash import FlashTank
 import numpy as np
 from component import Component
 

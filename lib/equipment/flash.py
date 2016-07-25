@@ -2,6 +2,7 @@
 
 '''general unit operations class'''
 
+from unitop import UnitOp
 from component import Component
 import numpy as np
 from scipy.optimize import fsolve, minimize, fmin, brentq
@@ -9,26 +10,15 @@ import sys
 import matplotlib.pyplot as plt
 #------------------------------------------------------------------------------
 
-class UnitOp:
-    #basic unit operations class
-
-    def __init__(self,temperature=333,pressure=100000,molar_inflow=39.59,components=None,mole_fracs=None):
-                
-        self.molar_inflow = molar_inflow
-        self.temperature = temperature
-        self.pressure = pressure
-        
-        self.components = components#[Component("methanol"), Component("water")]        
-        self.mole_fracs = mole_fracs
-
-
 class FlashTank(UnitOp):
     # calculates outlet streams' compositions / size of tank required 
 
     def __init__(self,temperature=333,pressure=100000,molar_inflow=39.59,
                  components=None,mole_fracs=None, debug=False):
     
-        UnitOp.__init__(self,temperature=temperature,pressure=pressure,molar_inflow=molar_inflow,components=components,mole_fracs=mole_fracs)
+        UnitOp.__init__(self,temperature=temperature,
+                        pressure=pressure,molar_inflow=molar_inflow,
+                        components=components,mole_fracs=mole_fracs)
         
         self.vle = np.zeros(len(self.components))
         self.xi = np.zeros(len(self.components))
@@ -47,25 +37,7 @@ class FlashTank(UnitOp):
             
         if self.debug:
             print 'VLE constants: ', self.vle
-        
-
-    # def binary_flash(self):
-        
-    #     '''determining output stream compositions in a binary mixture since Rachford-Rice
-    #     seems iffy here...'''
-
-    #     self.xi[0] = (1-self.vle[1])/(self.vle[0]-self.vle[1])
-    #     print "xi[0] = ", self.xi[0]
-    #     self.xi[1] = 1.0 - self.xi[0]
-    #     self.beta = (self.mole_fracs[0] - self.xi[0])/(self.vle[0] - self.xi[0])
-    #     self.yi[0] = self.vle[0]*self.mole_fracs[0]
-    #     self.yi[1] = 1.0 - self.yi[0]
-
-    #     print "xi = ", self.xi
-    #     print "yi = ", self.yi
-    #     print "beta = ", self.beta
-        
-        
+             
         
     
     def rach_rice(self):
