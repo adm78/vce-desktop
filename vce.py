@@ -12,14 +12,23 @@ class DesignerMainWindow(QtGui.QMainWindow, Ui_vceMainWindow):
         super(DesignerMainWindow, self).__init__(parent)
         self.setupUi(self)
         
-        #connect the signals with the slots
-        #I think we are missing some of these... have another look at the designer...
-        QtCore.QObject.connect(self.vcepushButton, QtCore.
-    SIGNAL("clicked()"), self.update_graph)
-        QtCore.QObject.connect(self.vceactionOpen, QtCore. 
-    SIGNAL('triggered()'), self.select_file)
-        QtCore.QObject.connect(self.vceactionQuit, QtCore.
-    SIGNAL('triggered()'), QtGui.qApp, QtCore.SLOT("quit()"))
+        # connect the signals with the slots 
+        # (buttons with function calls)
+        QtCore.QObject.connect(self.vcepushButton, 
+                               QtCore.SIGNAL("clicked()"), 
+                               self.update_graph)
+
+        QtCore.QObject.connect(self.vceactionOpen, 
+                               QtCore.SIGNAL('triggered()'), 
+                               self.select_file)
+
+        QtCore.QObject.connect(self.vceactionQuit, 
+                               QtCore.SIGNAL('triggered()'), 
+                               self.init_sine_wave_animation)
+
+        QtCore.QObject.connect(self.vceactionSineWave,
+                               QtCore.SIGNAL('triggered()'), 
+                               QtGui.qApp, QtCore.SLOT("quit()"))
 
 
     def select_file(self):
@@ -57,6 +66,10 @@ class DesignerMainWindow(QtGui.QMainWindow, Ui_vceMainWindow):
         self.vce.canvas.ax.set_xticklabels(l)
         self.vce.canvas.ax.get_yaxis().grid(True)
         self.vce.canvas.draw()
+
+    def init_sine_wave_animation(self):
+        
+        pass
         
 #create the gui application
 app = QtGui.QApplication(sys.argv)

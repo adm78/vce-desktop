@@ -21,7 +21,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="GUIresources/GUIresources.qrc">
-    <normaloff>:/images/vcelogo.png</normaloff>:/images/vcelogo.png</iconset>
+    <normaloff>:/icons/vcelogo.png</normaloff>:/icons/vcelogo.png</iconset>
   </property>
   <widget class="QWidget" name="vcecentralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -40,7 +40,7 @@
      </layout>
     </item>
     <item>
-     <widget class="vceflashWidget" name="vce" native="true">
+     <widget class="vcePlotWidget" name="vce" native="true">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
         <horstretch>0</horstretch>
@@ -83,7 +83,7 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>380</x>
+      <x>343</x>
       <y>151</y>
       <width>171</width>
       <height>106</height>
@@ -130,11 +130,19 @@
    <addaction name="vceactionFlashTank"/>
   </widget>
   <action name="vceactionOpen">
+   <property name="icon">
+    <iconset resource="GUIresources/GUIresources.qrc">
+     <normaloff>:/icons/open_folder.png</normaloff>:/icons/open_folder.png</iconset>
+   </property>
    <property name="text">
     <string>Open</string>
    </property>
   </action>
   <action name="actionSettings">
+   <property name="icon">
+    <iconset resource="GUIresources/GUIresources.qrc">
+     <normaloff>:/icons/settings.png</normaloff>:/icons/settings.png</iconset>
+   </property>
    <property name="text">
     <string>Settings</string>
    </property>
@@ -147,13 +155,17 @@
   <action name="vceactionFlashTank">
    <property name="icon">
     <iconset resource="GUIresources/GUIresources.qrc">
-     <normaloff>:/images/flash_icon.png</normaloff>:/images/flash_icon.png</iconset>
+     <normaloff>:/icons/flash_icon.png</normaloff>:/icons/flash_icon.png</iconset>
    </property>
    <property name="text">
     <string>Flash Tank</string>
    </property>
   </action>
   <action name="vceactionQuit">
+   <property name="icon">
+    <iconset resource="GUIresources/GUIresources.qrc">
+     <normaloff>:/icons/close.png</normaloff>:/icons/close.png</iconset>
+   </property>
    <property name="text">
     <string>Exit</string>
    </property>
@@ -161,7 +173,7 @@
   <action name="vceactionSineWave">
    <property name="icon">
     <iconset resource="GUIresources/GUIresources.qrc">
-     <normaloff>:/images/sine_wave.png</normaloff>:/images/sine_wave.png</iconset>
+     <normaloff>:/icons/sine_wave_colour.png</normaloff>:/icons/sine_wave_colour.png</iconset>
    </property>
    <property name="text">
     <string>Sine Wave</string>
@@ -170,9 +182,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>vceflashWidget</class>
+   <class>vcePlotWidget</class>
    <extends>QWidget</extends>
-   <header>vceflashwidget.h</header>
+   <header>vceplotwidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
