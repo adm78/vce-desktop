@@ -4,6 +4,7 @@
 are useful across the code-base'''
 import os
 import glob
+import platform
 
 def getVCEPath():
 
@@ -49,3 +50,25 @@ def which(program):
                 return exe_file
 
     return None
+
+def isWindows():
+
+    if platform.system() == "Windows":
+        return True
+    else:
+        return False
+
+def isLinux():
+
+    if platform.system == "Linux":
+        return True
+    else:
+        return False
+
+def isMacOS():
+
+    if platform.system == "Darwin":
+        return True
+    else:
+        return False
+    

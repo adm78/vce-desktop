@@ -6,13 +6,22 @@ Designer. Any new ui widgets require a line to be added in this file'''
 
 import subprocess 
 import os
-from utils import which
+from utils import which, isWindows
+import sys
 
 #update the main window .py
-if which("pyuic") != None:
+
+#checking for the correct executables 
+pyuic_exec = "pyuic"
+pyuic4_exec = "pyuic4"
+if isWindows():
+    pyuic_exec += ".exe"
+    pyuic4_exec += ".exe"
+
+if which(pyuic_exec) != None:
     pyuic_cmd = "pyuic vceMainWindowGUI.ui > vceMainWindowGUI.py"
     
-elif which("pyuic4") != None:
+elif which(pyuic4_exec) != None:
     pyuic_cmd = "pyuic4 vceMainWindowGUI.ui > vceMainWindowGUI.py"
 else:
     print "update.py Error: neither pyuic or pyuic4 could not be found."
