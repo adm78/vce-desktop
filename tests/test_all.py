@@ -28,7 +28,7 @@ print "starting full regression test..."
 for script in test_scripts:
     print "------------------------------------"
     print "running", script
-    vce_process = subprocess.Popen(["python " + script],
+    vce_process = subprocess.Popen(("python " + script),
                                  stdout=subprocess.PIPE,
                                  stderr=subprocess.PIPE,
                                  shell=True)
