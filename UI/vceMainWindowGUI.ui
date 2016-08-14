@@ -40,7 +40,29 @@
      </layout>
     </item>
     <item>
-     <widget class="vcePlotWidget" name="vce" native="true">
+     <widget class="QSlider" name="vcefreqSlider">
+      <property name="minimum">
+       <number>1</number>
+      </property>
+      <property name="maximum">
+       <number>101</number>
+      </property>
+      <property name="pageStep">
+       <number>1</number>
+      </property>
+      <property name="sliderPosition">
+       <number>50</number>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="tickPosition">
+       <enum>QSlider::NoTicks</enum>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="vcePlotWidget" name="vceplotArea" native="true">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
         <horstretch>0</horstretch>
@@ -50,6 +72,7 @@
       <property name="mouseTracking">
        <bool>false</bool>
       </property>
+      <zorder>vcefreqSlider</zorder>
      </widget>
     </item>
    </layout>
