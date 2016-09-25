@@ -75,7 +75,7 @@ class Ui_vceMainWindow(object):
         self.menuEdit.setObjectName(_fromUtf8("menuEdit"))
         self.vcemenuSimulate = QtGui.QMenu(self.vcemenubar)
         self.vcemenuSimulate.setEnabled(True)
-        self.vcemenuSimulate.setGeometry(QtCore.QRect(343, 153, 171, 106))
+        self.vcemenuSimulate.setGeometry(QtCore.QRect(343, 346, 171, 130))
         self.vcemenuSimulate.setObjectName(_fromUtf8("vcemenuSimulate"))
         self.menuAnalyse = QtGui.QMenu(self.vcemenubar)
         self.menuAnalyse.setObjectName(_fromUtf8("menuAnalyse"))
@@ -118,12 +118,15 @@ class Ui_vceMainWindow(object):
         icon6.addPixmap(QtGui.QPixmap(_fromUtf8(":/icons/sine_wave.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.vceactionCosineWave.setIcon(icon6)
         self.vceactionCosineWave.setObjectName(_fromUtf8("vceactionCosineWave"))
+        self.actionCosine_Wave = QtGui.QAction(vceMainWindow)
+        self.actionCosine_Wave.setObjectName(_fromUtf8("actionCosine_Wave"))
         self.vcemenuFile.addAction(self.vceactionOpen)
         self.vcemenuFile.addSeparator()
         self.vcemenuFile.addAction(self.vceactionQuit)
         self.menuEdit.addAction(self.actionSettings)
         self.vcemenuSimulate.addAction(self.vceactionFlashTank)
         self.vcemenuSimulate.addAction(self.vceactionSineWave)
+        self.vcemenuSimulate.addAction(self.actionCosine_Wave)
         self.vcemenubar.addAction(self.vcemenuFile.menuAction())
         self.vcemenubar.addAction(self.menuEdit.menuAction())
         self.vcemenubar.addAction(self.vcemenuSimulate.menuAction())
@@ -150,6 +153,7 @@ class Ui_vceMainWindow(object):
         self.vceactionQuit.setText(_translate("vceMainWindow", "Exit", None))
         self.vceactionSineWave.setText(_translate("vceMainWindow", "Sine Wave", None))
         self.vceactionCosineWave.setText(_translate("vceMainWindow", "Cosine Wave", None))
+        self.actionCosine_Wave.setText(_translate("vceMainWindow", "Cosine Wave", None))
 
 from vceplotwidget import vcePlotWidget
 import GUIresources_rc
