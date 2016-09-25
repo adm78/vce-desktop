@@ -72,7 +72,6 @@
       <property name="mouseTracking">
        <bool>false</bool>
       </property>
-      <zorder>vcefreqSlider</zorder>
      </widget>
     </item>
    </layout>
@@ -107,9 +106,9 @@
     <property name="geometry">
      <rect>
       <x>343</x>
-      <y>151</y>
+      <y>346</y>
       <width>171</width>
-      <height>106</height>
+      <height>130</height>
      </rect>
     </property>
     <property name="title">
@@ -117,6 +116,7 @@
     </property>
     <addaction name="vceactionFlashTank"/>
     <addaction name="vceactionSineWave"/>
+    <addaction name="actionCosine_Wave"/>
    </widget>
    <widget class="QMenu" name="menuAnalyse">
     <property name="title">
@@ -200,6 +200,20 @@
    </property>
    <property name="text">
     <string>Sine Wave</string>
+   </property>
+  </action>
+  <action name="vceactionCosineWave">
+   <property name="icon">
+    <iconset resource="GUIresources/GUIresources.qrc">
+     <normaloff>:/icons/sine_wave.png</normaloff>:/icons/sine_wave.png</iconset>
+   </property>
+   <property name="text">
+    <string>Cosine Wave</string>
+   </property>
+  </action>
+  <action name="actionCosine_Wave">
+   <property name="text">
+    <string>Cosine Wave</string>
    </property>
   </action>
  </widget>

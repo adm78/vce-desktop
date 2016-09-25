@@ -64,7 +64,6 @@ class Ui_vceMainWindow(object):
         self.vceplotArea.setSizePolicy(sizePolicy)
         self.vceplotArea.setMouseTracking(False)
         self.vceplotArea.setObjectName(_fromUtf8("vceplotArea"))
-        self.vcefreqSlider.raise_()
         self.verticalLayout.addWidget(self.vceplotArea)
         vceMainWindow.setCentralWidget(self.vcecentralwidget)
         self.vcemenubar = QtGui.QMenuBar(vceMainWindow)
@@ -76,7 +75,7 @@ class Ui_vceMainWindow(object):
         self.menuEdit.setObjectName(_fromUtf8("menuEdit"))
         self.vcemenuSimulate = QtGui.QMenu(self.vcemenubar)
         self.vcemenuSimulate.setEnabled(True)
-        self.vcemenuSimulate.setGeometry(QtCore.QRect(343, 151, 171, 106))
+        self.vcemenuSimulate.setGeometry(QtCore.QRect(343, 153, 171, 106))
         self.vcemenuSimulate.setObjectName(_fromUtf8("vcemenuSimulate"))
         self.menuAnalyse = QtGui.QMenu(self.vcemenubar)
         self.menuAnalyse.setObjectName(_fromUtf8("menuAnalyse"))
@@ -114,6 +113,11 @@ class Ui_vceMainWindow(object):
         icon5.addPixmap(QtGui.QPixmap(_fromUtf8(":/icons/sine_wave_colour.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.vceactionSineWave.setIcon(icon5)
         self.vceactionSineWave.setObjectName(_fromUtf8("vceactionSineWave"))
+        self.vceactionCosineWave = QtGui.QAction(vceMainWindow)
+        icon6 = QtGui.QIcon()
+        icon6.addPixmap(QtGui.QPixmap(_fromUtf8(":/icons/sine_wave.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.vceactionCosineWave.setIcon(icon6)
+        self.vceactionCosineWave.setObjectName(_fromUtf8("vceactionCosineWave"))
         self.vcemenuFile.addAction(self.vceactionOpen)
         self.vcemenuFile.addSeparator()
         self.vcemenuFile.addAction(self.vceactionQuit)
@@ -145,6 +149,7 @@ class Ui_vceMainWindow(object):
         self.vceactionFlashTank.setText(_translate("vceMainWindow", "Flash Tank", None))
         self.vceactionQuit.setText(_translate("vceMainWindow", "Exit", None))
         self.vceactionSineWave.setText(_translate("vceMainWindow", "Sine Wave", None))
+        self.vceactionCosineWave.setText(_translate("vceMainWindow", "Cosine Wave", None))
 
 from vceplotwidget import vcePlotWidget
 import GUIresources_rc
