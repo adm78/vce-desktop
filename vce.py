@@ -6,6 +6,9 @@ from PyQt4 import QtGui
 
 from vceMainWindowGUI import Ui_vceMainWindow
 
+''' In this module we connect all the GUI options to their associated
+function calls '''
+
 
 class DesignerMainWindow(QtGui.QMainWindow, Ui_vceMainWindow):
     def __init__(self, parent = None):
