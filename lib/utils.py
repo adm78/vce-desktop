@@ -4,6 +4,7 @@
 are useful across the code-base'''
 import os
 import glob
+import platform
 
 def getVCEPath():
 
@@ -28,4 +29,46 @@ def getVCEPropertiesPath():
     #returns the path of the properties database
     return os.path.join(getVCEPath(),'properties')
 
+def which(program):
+    
+    ''' Cross platform functional to check if an executable exists
+    http://stackoverflow.com/questions/
+    377017/test-if-executable-exists-in-python'''
+    
+    def is_exe(fpath):
+        return os.path.isfile(fpath) and os.access(fpath, os.X_OK)
 
+    fpath, fname = os.path.split(program)
+    if fpath:
+        if is_exe(program):
+            return program
+    else:
+        for path in os.environ["PATH"].split(os.pathsep):
+            path = path.strip('"')
+            exe_file = os.path.join(path, program)
+            if is_exe(exe_file):
+                return exe_file
+
+    return None
+
+def isWindows():
+
+    if platform.system() == "Windows":
+        return True
+    else:
+        return False
+
+def isLinux():
+
+    if platform.system == "Linux":
+        return True
+    else:
+        return False
+
+def isMacOS():
+
+    if platform.system == "Darwin":
+        return True
+    else:
+        return False
+    

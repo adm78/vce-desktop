@@ -13,11 +13,14 @@ class vceCanvas(FigureCanvas):
                                    QtGui.QSizePolicy.Expanding)
         FigureCanvas.updateGeometry(self)
 
-class vceflashWidget(QtGui.QWidget):
+class vcePlotWidget(QtGui.QWidget):
     def __init__(self, parent = None):
         QtGui.QWidget.__init__(self, parent)
         self.canvas = vceCanvas()
         self.vbl = QtGui.QVBoxLayout()
         self.vbl.addWidget(self.canvas)
         self.setLayout(self.vbl)
+
+
+
         
