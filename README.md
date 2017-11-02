@@ -2,7 +2,9 @@
 # VCE Desktop
 Visual Chemical Engineering Desktop Application
 
-The original Pythonic inspiration for [visualchemeng.com](http://visualchemeng.com/). Simulating chemical engineering unit operations with Python. Development of this project has ceased and the focus has moved to a web-based, JavaScript-powered version of the VCE project [here](https://github.com/adm78/visualchemeng_js). 
+The original Pythonic inspiration for [visualchemeng.com](http://visualchemeng.com/). Simulating chemical engineering unit operations with Python. 
+
+**Development of this project has ceased and the focus has moved to a web-based, JavaScript-powered version of the VCE project [here](https://github.com/adm78/visualchemeng_js).** 
 
 ## Getting Started
 Pre-requisits:
